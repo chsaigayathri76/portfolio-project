@@ -20,6 +20,11 @@ mongoose.connect(process.env.MONGO_URI)
 app.get("/add", async (req, res) => {
   const Project = require("./models/Project");
 
+app.get("/delete", async (req, res) => {
+  await Project.deleteMany({});
+  res.send("All projects deleted");
+});
+
   await Project.insertMany([
     { title: "Portfolio Website", description: "React + Node + MongoDB" },
     { title: "Todo App", description: "Task manager using React" },
@@ -39,6 +44,7 @@ app.post("/contact", (req, res) => {
 });
 
 // PORT FIX 
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
