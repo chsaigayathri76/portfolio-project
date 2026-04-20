@@ -24,14 +24,10 @@ app.get("/add", async (req, res) => {
     { title: "Todo App", description: "Task manager using React" },
     { title: "Weather App", description: "Fetch weather using API" }
   ]);
-
-  res.send("Projects Added");
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
 });
-
-// ✅ DELETE ROUTE (OUTSIDE)
-app.get("/delete", async (req, res) => {
-  await Project.deleteMany({});
-  res.send("All projects deleted");
+  res.send("Projects Added");
 });
 
 // Routes
