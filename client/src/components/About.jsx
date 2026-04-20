@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Projects from "./components/Projects";
 
 export default function About() {
   return (

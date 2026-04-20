@@ -7,24 +7,24 @@ export default function Projects() {
   useEffect(() => {
     axios
       .get("https://portfolio-project-2-olq8.onrender.com/api/projects")
-      .then((res) => {
-        setProjects(res.data);
-      })
-      .catch((err) => {
-        console.log("API ERROR:", err);
-      });
+      .then((res) => setProjects(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
       <h2>Projects</h2>
 
-      {projects.map((p) => (
-        <div key={p._id}>
-          <h3>{p.title}</h3>
-          <p>{p.description}</p>
-        </div>
-      ))}
+      {projects.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        projects.map((p) => (
+          <div key={p._id}>
+            <h3>{p.title}</h3>
+            <p>{p.description}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
