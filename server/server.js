@@ -4,47 +4,43 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const Project = require("./models/Project");
+const projectRoutes = require("./routes/projectRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// ✅ CONNECT DATABASE FIRST
+// DB connect
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("Mongo Error:", err));
 
-// ✅ ROUTES AFTER CONNECTION
+// Test route
 app.get("/add", async (req, res) => {
+  const Project = require("./models/Project");
+
   await Project.insertMany([
-    {
-      title: "Portfolio Website",
-      description: "React + Node + MongoDB"
-    },
-    {
-      title: "Todo App",
-      description: "Task manager using React"
-    },
-    {
-      title: "Weather App",
-      description: "Fetch weather using API"
-    }
+    { title: "Portfolio Website", description: "React + Node + MongoDB" },
+    { title: "Todo App", description: "Task manager using React" },
+    { title: "Weather App", description: "Fetch weather using API" }
   ]);
 
   res.send("Projects Added");
 });
-app.post("/contact", async (req, res) => {
+
+// Routes
+app.use("/api/projects", projectRoutes);
+
+// Contact
+app.post("/contact", (req, res) => {
   console.log(req.body);
   res.send("Message received");
 });
 
-app.get("/api/projects", async (req, res) => {
-  const projects = await Project.find();
-  res.json(projects);
-});
+// PORT FIX ✅
+const PORT = process.env.PORT || 5001;
 
-app.listen(5001, () => {
-  console.log("Server running on port 5001");
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
