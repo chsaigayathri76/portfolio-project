@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+const mongoose = require("mongoose");
 
+const projectSchema = new mongoose.Schema({
+  title: String,
+  description: String
+});
+
+module.exports = mongoose.model("Project", projectSchema);
 function Projects() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/projects")
+      .get("http://localhost:5001/api/projects")
       .then((res) => setProjects(res.data))
       .catch((err) => console.log(err));
   }, []);

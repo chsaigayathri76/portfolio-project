@@ -1,9 +1,8 @@
-import Projects from "./pages/projects";
+import Projects from "./components/Projects";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>My Portfolio</h1>
+    <div>
       <Projects />
     </div>
   );
