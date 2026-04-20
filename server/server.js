@@ -24,9 +24,6 @@ app.get("/add", async (req, res) => {
     { title: "Todo App", description: "Task manager using React" },
     { title: "Weather App", description: "Fetch weather using API" }
   ]);
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
   res.send("Projects Added");
 });
 
