@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const projectRoutes = require("./routes/projectRoutes");
+const Project = require("./models/Project");
 
 const app = express();
 
@@ -16,15 +17,8 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("Mongo Error:", err));
 
-// Test route
+// ✅ ADD ROUTE
 app.get("/add", async (req, res) => {
-  const Project = require("./models/Project");
-
-app.get("/delete", async (req, res) => {
-  await Project.deleteMany({});
-  res.send("All projects deleted");
-});
-
   await Project.insertMany([
     { title: "Portfolio Website", description: "React + Node + MongoDB" },
     { title: "Todo App", description: "Task manager using React" },
@@ -32,6 +26,12 @@ app.get("/delete", async (req, res) => {
   ]);
 
   res.send("Projects Added");
+});
+
+// ✅ DELETE ROUTE (OUTSIDE)
+app.get("/delete", async (req, res) => {
+  await Project.deleteMany({});
+  res.send("All projects deleted");
 });
 
 // Routes
@@ -43,7 +43,7 @@ app.post("/contact", (req, res) => {
   res.send("Message received");
 });
 
-// PORT FIX 
+// PORT
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
