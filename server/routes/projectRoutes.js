@@ -4,15 +4,25 @@ const Project = require("../models/Project");
 
 // GET all projects
 router.get("/", async (req, res) => {
-  const projects = await Project.find();
-  res.json(projects);
+  try {
+    const projects = await Project.find();
+    res.json(projects);
+  } catch (err) {
+    console.log("ERROR:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // POST new project
 router.post("/", async (req, res) => {
-  const newProject = new Project(req.body);
-  await newProject.save();
-  res.json(newProject);
+  try {
+    const newProject = new Project(req.body);
+    await newProject.save();
+    res.json(newProject);
+  } catch (err) {
+    console.log("ERROR:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 module.exports = router;

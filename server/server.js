@@ -38,8 +38,7 @@ app.post("/contact", (req, res) => {
   res.send("Message received");
 });
 
-// PORT FIX ✅
-const PORT = process.env.PORT || 5001;
+// PORT FIX 
 
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
